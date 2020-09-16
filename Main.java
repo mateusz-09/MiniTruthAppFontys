@@ -56,21 +56,39 @@ public class Main {
 //      Testinput: "Nunc nulla, pulvinar donec at fringilla amet. Non a ridiculus duis aenean sociis dictum penatibus torquent natoque sit duis imperdiet elit eget lobortis etiam natoque congue facilisi et placerat iaculis maecenas ridiculus malesuada taciti velit vehicula vehicula sociis nisi est duis arcu habitant tincidunt feugiat, maecenas habitant nonummy pede pulvinar parturient etiam taciti integer massa venenatis sem tincidunt. Eget. Pretium bibendum urna euismod malesuada sem facilisi. Sodales cum nisi taciti id tortor cras nisi congue ornare massa purus cubilia dignissim cum, dui. Laoreet blandit aenean porttitor. Est dictum vehicula Nam cum blandit scelerisque vulputate netus amet urna viverra etiam proin Scelerisque fusce iaculis. Pretium pretium natoque lacus vulputate vitae libero velit suspendisse nisi id eu. Ornare mattis risus scelerisque, blandit Habitasse. Cubilia velit sapien viverra mauris hendrerit. Urna egestas suscipit condimentum, nascetur phasellus a platea mollis eu dui condimentum in est Faucibus a. Maecenas integer imperdiet erat cras. Sollicitudin ad congue fringilla malesuada conubia faucibus facilisis id sed egestas. Porttitor torquent accumsan. Eget eget. Pharetra placerat sapien potenti montes morbi magna curabitur iaculis tempus class. Nulla. Sodales ac. Faucibus nunc. Interdum venenatis pede molestie volutpat. Nascetur senectus etiam fermentum feugiat tincidunt ornare. Suspendisse ad consectetuer, laoreet vel metus facilisis malesuada."
 
 //      Big Brother check
-//        for loop
         String textInputControl = textInput;
-        if (textInputControl.contains("Big") && textInputControl.contains("Brother")){
-            if (textInputControl.indexOf("Big") < textInputControl.indexOf("Brother")){
-                String textInputControlCheck = textInputControl.substring(textInputControl.indexOf("Big")); // Remove everything before Big
-                textInputControlCheck = textInputControlCheck.substring(0, (textInputControlCheck.lastIndexOf("Brother")+7)); // Remove everything after Brother
-                if (countWords(textInputControlCheck) <= 5) { // Less or 3 words between triggers ALARM
-                    System.out.println("ALARM, STOP THE PROGRAM");
+        Boolean alarm = false;
+        while (alarm == false) {
+            if (textInputControl.contains("Big") && textInputControl.contains("Brother")) {
+                //  Test if Big comes first
+                if (textInputControl.indexOf("Big") < textInputControl.indexOf("Brother")) {
+                    String textInputControlCheck = textInputControl.substring(textInputControl.indexOf("Big")); // Remove everything before Big
+                    textInputControlCheck = textInputControlCheck.substring(0, (textInputControlCheck.lastIndexOf("Brother") + 7)); // Remove everything after Brother
+                    if (countWords(textInputControlCheck) <= 5) { // Less or 3 words between triggers ALARM
+                        System.out.println("ALARM, STOP THE PROGRAM");
+                        alarm = true;
+                    } else { // Check failed, update textInputControl
+                        textInputControl = textInputControl.substring((textInputControl.indexOf("Brother")));
+                        System.out.println(textInputControl);
+                    }
                 }
-                else { // Check failed, update textInputControl
-                    
+                //  If Brother comes first
+                else {
+                    String textInputControlCheck = textInputControl.substring(textInputControl.indexOf("Brother")); // Remove everything before Brother
+                    textInputControlCheck = textInputControlCheck.substring(0, (textInputControlCheck.lastIndexOf("Big") + 7)); // Remove everything after Big
+                    if (countWords(textInputControlCheck) <= 5) { // Less or 3 words between triggers ALARM
+                        System.out.println("ALARM, STOP THE PROGRAM");
+                        alarm = true;
+                    } else { // Check failed, update textInputControl
+                        textInputControl = textInputControl.substring((textInputControl.indexOf("Big")));
+                        System.out.println(textInputControl);
+                    }
                 }
             }
+            else {
+                break;
+            }
         }
-
 //      Count words
         int numberOfWords = countWords(textInput);
         System.out.println("String contains: " + numberOfWords + " words");
@@ -83,31 +101,5 @@ public class Main {
             numberOfWords = countWords(textInput);
             System.out.println("This new string contains: " + numberOfWords + " words");
         }
-
-
-
-
-
-//        // write your code here
-//        String sentence = "Check this answer and you can find the keyword with this code Big Brother";
-//        String searchbig  = "Big";
-//        String searchbrother  = "Brother";
-//
-//        if ( sentence.toLowerCase().indexOf(searchbig.toLowerCase()) != -1 && sentence.toLowerCase().indexOf(searchbrother.toLowerCase()) != -1 ) {
-//
-//            System.out.println("I found the keyword");
-//            String[] parts = sentence.split(" ");
-//            System.out.println(parts);
-//        } else {
-//
-//            System.out.println("not found");
-//
-//        }
     }
 }
-
-
-
-
-
-
