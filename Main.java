@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-
 //  This method counts how many words there are in a string.
 //  Input: string
 //  Output: int
@@ -35,7 +34,7 @@ public class Main {
         return wordCount;
     }
 
-//    Method for reducing text in string.
+    //    Method for reducing text in string.
 //    Input: string with text and integer with the maximum words the new text should contain
 //    Output: reduced string
     public static String reducedText(String s, int maxWords){
@@ -70,7 +69,7 @@ public class Main {
         return stringSplitted[0];
     }
 
-//    This method changes words in string when the match with the first input arraylist and gets replaced
+    //    This method changes words in string when the match with the first input arraylist and gets replaced
 //    Input: String, Arraylist with words to look for, Arraylist with words that needs to be replaced.
     public static String changeSpeak(String s, ArrayList<String> oldSpeak, ArrayList<String> newSpeak){
 //         This method changes old speak into newspeak
@@ -93,13 +92,12 @@ public class Main {
         return s;
     }
 
-//    Main program
+    //    Main program
     public static void main(String[] args) {
 //      User input
         Scanner textReader = new Scanner(System.in);
         System.out.println("Voer uw tekst in");
         String textInput = textReader.nextLine();
-
 //      Testinput: "Nunc nulla, pulvinar donec at fringilla amet. Non a ridiculus duis aenean sociis dictum penatibus torquent natoque sit duis imperdiet elit eget lobortis etiam natoque congue facilisi et placerat iaculis maecenas ridiculus malesuada taciti velit vehicula vehicula sociis nisi est duis arcu habitant tincidunt feugiat, maecenas habitant nonummy pede pulvinar parturient etiam taciti integer massa venenatis sem tincidunt. Eget. Pretium bibendum urna euismod malesuada sem facilisi. Sodales cum nisi taciti id tortor cras nisi congue ornare massa purus cubilia dignissim cum, dui. Laoreet blandit aenean porttitor. Est dictum vehicula Nam cum blandit scelerisque vulputate netus amet urna viverra etiam proin Scelerisque fusce iaculis. Pretium pretium natoque lacus vulputate vitae libero velit suspendisse nisi id eu. Ornare mattis risus scelerisque, blandit Habitasse. Cubilia velit sapien viverra mauris hendrerit. Urna egestas suscipit condimentum, nascetur phasellus a platea mollis eu dui condimentum in est Faucibus a. Maecenas integer imperdiet erat cras. Sollicitudin ad congue fringilla malesuada conubia faucibus facilisis id sed egestas. Porttitor torquent accumsan. Eget eget. Pharetra placerat sapien potenti montes morbi magna curabitur iaculis tempus class. Nulla. Sodales ac. Faucibus nunc. Interdum venenatis pede molestie volutpat. Nascetur senectus etiam fermentum feugiat tincidunt ornare. Suspendisse ad consectetuer, laoreet vel metus facilisis malesuada."
 
 //      Big Brother check
@@ -114,29 +112,30 @@ public class Main {
                     String textInputControlCheck = textInputControl.substring(textInputControl.indexOf("big")); // Remove everything before Big
                     textInputControlCheck = textInputControlCheck.substring(0, (textInputControlCheck.lastIndexOf("brother") + 7)); // Remove everything after Brother
                     if (countWords(textInputControlCheck) <= 5) { // Less or 3 words between triggers ALARM
-                        System.out.println("ALARM, STOP THE PROGRAM");
+                        System.out.println("ALARM, STOPPING THE PROGRAM AND REMOVING ALL OF THE INPUT");
                         alarm = true;
+                        Main.main(args);
                     } else { // Check failed, update textInputControl
                         textInputControl = textInputControl.substring((textInputControl.indexOf("Brother")));
-                        System.out.println(textInputControl);
                     }
                 }
                 //  If Brother comes first
                 else {
                     String textInputControlCheck = textInputControl.substring(textInputControl.indexOf("brother")); // Remove everything before Brother
-                    textInputControlCheck = textInputControlCheck.substring(0, (textInputControlCheck.lastIndexOf("big") + 7)); // Remove everything after Big
+                    textInputControlCheck = textInputControlCheck.substring(0, (textInputControlCheck.lastIndexOf("big") + 3)); // Remove everything after Big
                     if (countWords(textInputControlCheck) <= 5) { // Less or 3 words between triggers ALARM
-                        System.out.println("ALARM, STOP THE PROGRAM");
+                        System.out.println("ALARM, STOPPING THE PROGRAM AND REMOVING ALL OF THE INPUT");
                         alarm = true;
+                        Main.main(args);
                     } else { // Check failed, update textInputControl
                         textInputControl = textInputControl.substring((textInputControl.indexOf("big")));
-                        System.out.println(textInputControl);
                     }
                 }
             }
             else {
                 break;
             }
+            textReader.close();
         }
 
 //      First check has been completed, now it's time to start counting words.
